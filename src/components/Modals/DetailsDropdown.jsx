@@ -7,7 +7,7 @@ const DetailsDropdown = ({ setIsDropdownOpen }) => {
         url = "https://github.com/veerprakash28";
         break;
       case "projectSource":
-        url = "https://github.com/your-project-source";
+        url = "https://github.com/veerprakash28/fitbit-app";
         break;
       default:
         break;
