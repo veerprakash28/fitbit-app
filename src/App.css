@@ -1,0 +1,7 @@
+.box {
+  box-shadow: 0px 3px 20px #0000000b;
+  background-color: #121212;
+  border-color: transparent;
+  border-radius: theme("borderRadius.md");
+  position: relative;
+}
