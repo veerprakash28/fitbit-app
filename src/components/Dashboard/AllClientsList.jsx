@@ -95,7 +95,7 @@ const AllClientsList = ({ data, setData }) => {
                 </td>
                 <td className="px-4 py-2">{client.location}</td>
                 <td className="px-4 py-2">
-                  {client.appointments.length > 0 ? (
+                  {client?.appointments?.length > 0 ? (
                     <ul>
                       {client.appointments.map((appointment, appIndex) => (
                         <li key={appIndex} className="flex items-center mb-1">
