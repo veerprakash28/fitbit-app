@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import DeleteConfirmationModal from "../Modals/DeleteConfirmationModal";
 import AddAppointmentModal from "../Modals/AddAppointmentModal";
 import DeleteUserConfirmation from "../Modals/DeleteUserConfirmation";
+import NoAppointmentsFound from "../../assets/lottie/NoAppointmentsFound";
 
 const AllClientsList = ({ data, setData }) => {
   const [selectedClient, setSelectedClient] = useState(null);
@@ -68,93 +69,100 @@ const AllClientsList = ({ data, setData }) => {
   return (
     <div className="overflow-x-auto mt-4">
       <div className="max-w-screen-xl mx-auto">
-        <table
-          className="w-full table-auto border rounded-lg overflow-hidden"
-          cellSpacing={0}
-        >
-          <thead className="">
-            <tr>
-              <th className="px-4 py-2 text-left"> # </th>
-              <th className="px-4 py-2 text-left"> Name </th>
-              <th className="px-4 py-2 text-left"> Location </th>
-              <th className="px-4 py-2 text-left"> Appointments </th>
-              <th className="px-4 py-2 text-left"> Actions </th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((client, clientIndex) => (
-              <tr
-                key={clientIndex}
-                className={`${
-                  clientIndex % 2 === 0 ? "bg-gray-100" : "bg-white"
-                } hover:bg-gray-200 transition-all rounded-lg`}
-              >
-                <td className="px-4 py-2 text-left">{clientIndex + 1}</td>
-                <td className="px-4 py-2 text-left">
-                  {client.firstName} {client.lastName}
-                </td>
-                <td className="px-4 py-2">{client.location}</td>
-                <td className="px-4 py-2">
-                  {client?.appointments?.length > 0 ? (
-                    <ul>
-                      {client.appointments.map((appointment, appIndex) => (
-                        <li key={appIndex} className="flex items-center mb-1">
-                          {dayjs(appointment.date).format(
-                            "DD MMM YYYY | h:mm A"
-                          )}
-                          <span
-                            className="ml-2 text-red-500 cursor-pointer"
-                            onClick={() =>
-                              handleDeleteAppointment(clientIndex, appIndex)
-                            }
-                          >
-                            <CalendarMinus
-                              size={16}
-                              color="#d91e18"
-                              strokeWidth={1.5}
-                            />
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : (
-                    <div className="flex items-center">
-                      No Appointments Scheduled
-                    </div>
-                  )}
-                </td>
-                <td className="px-4 py-2">
-                  <div className="flex items-center">
-                    <div className="cursor-pointer mx-2">
-                      <CalendarPlus
-                        size={20}
-                        color="#2d3436"
-                        strokeWidth={1.5}
-                        onClick={() => {
-                          setSelectedClient(client);
-                          setClientIndex(clientIndex);
-                          openEditClientModal(); // Open the edit client modal
-                        }}
-                      />
-                    </div>
-                    <div className="cursor-pointer">
-                      <UserX
-                        size={20}
-                        color="#d91e18"
-                        strokeWidth={1.5}
-                        onClick={() => {
-                          setSelectedClient(client);
-                          setClientIndex(clientIndex);
-                          setIsDeleteUser(true);
-                        }}
-                      />
-                    </div>
-                  </div>
-                </td>
+        {data?.length > 0 ? (
+          <table
+            className="w-full table-auto border rounded-lg overflow-hidden"
+            cellSpacing={0}
+          >
+            <thead className="">
+              <tr>
+                <th className="px-4 py-2 text-left"> # </th>
+                <th className="px-4 py-2 text-left"> Name </th>
+                <th className="px-4 py-2 text-left"> Location </th>
+                <th className="px-4 py-2 text-left"> Appointments </th>
+                <th className="px-4 py-2 text-left"> Actions </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {data.map((client, clientIndex) => (
+                <tr
+                  key={clientIndex}
+                  className={`${
+                    clientIndex % 2 === 0 ? "bg-gray-100" : "bg-white"
+                  } hover:bg-gray-200 transition-all rounded-lg`}
+                >
+                  <td className="px-4 py-2 text-left">{clientIndex + 1}</td>
+                  <td className="px-4 py-2 text-left">
+                    {client.firstName} {client.lastName}
+                  </td>
+                  <td className="px-4 py-2">{client.location}</td>
+                  <td className="px-4 py-2">
+                    {client?.appointments?.length > 0 ? (
+                      <ul>
+                        {client.appointments.map((appointment, appIndex) => (
+                          <li key={appIndex} className="flex items-center mb-1">
+                            {dayjs(appointment.date).format(
+                              "DD MMM YYYY | h:mm A"
+                            )}
+                            <span
+                              className="ml-2 text-red-500 cursor-pointer"
+                              onClick={() =>
+                                handleDeleteAppointment(clientIndex, appIndex)
+                              }
+                            >
+                              <CalendarMinus
+                                size={16}
+                                color="#d91e18"
+                                strokeWidth={1.5}
+                              />
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <div className="flex items-center">
+                        No Appointments Scheduled
+                      </div>
+                    )}
+                  </td>
+                  <td className="px-4 py-2">
+                    <div className="flex items-center">
+                      <div className="cursor-pointer mx-2">
+                        <CalendarPlus
+                          size={20}
+                          color="#2d3436"
+                          strokeWidth={1.5}
+                          onClick={() => {
+                            setSelectedClient(client);
+                            setClientIndex(clientIndex);
+                            openEditClientModal(); // Open the edit client modal
+                          }}
+                        />
+                      </div>
+                      <div className="cursor-pointer">
+                        <UserX
+                          size={20}
+                          color="#d91e18"
+                          strokeWidth={1.5}
+                          onClick={() => {
+                            setSelectedClient(client);
+                            setClientIndex(clientIndex);
+                            setIsDeleteUser(true);
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <div className="flex-grow flex flex-col items-center justify-center">
+            <NoAppointmentsFound />
+            <div className="text-xs lg:text-base mt-2">No Record Found</div>
+          </div>
+        )}
       </div>
 
       {/* Delete Confirmation Modal */}

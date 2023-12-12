@@ -31,7 +31,7 @@ const Dashboard = () => {
     <>
       <div className="flex flex-col h-screen">
         <TopBar />
-        {allClients.length === 0 ? (
+        {allClients.length === 0 && search?.length === 0 ? (
           <div className="flex-grow flex flex-col items-center justify-center">
             <NoClientFound />
             <Button
